@@ -20,7 +20,7 @@ class Animal {
 
   // Deletes killed or incorrect declarated animals from beasts list
   deleteBeast(beast) {
-    Animal.alive.splice(Animal.alive.indexOf(beast), 1);
+    Animal.alive = Animal.alive.filter((a) => a !== beast);
   }
 }
 
