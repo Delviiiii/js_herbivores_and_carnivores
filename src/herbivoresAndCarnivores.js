@@ -1,15 +1,60 @@
 'use strict';
 
 class Animal {
-  // write your code here
+  static alive = [];
+
+  constructor(name, health = 100) {
+    this.name = name;
+    this.health = health;
+
+    // Try to add animal into the beasts list
+    this.addBeast(this);
+  }
+
+  // Every animal with positive hp will be added to alive list
+  addBeast(beast) {
+    if (this.health > 0) {
+      Animal.alive.push(beast);
+    }
+  }
+
+  // Deletes killed or incorrect declarated animals from beasts list
+  deleteBeast(beast) {
+    Animal.alive.splice(Animal.alive.indexOf(beast), 1);
+  }
 }
 
 class Herbivore extends Animal {
-  // write your code here
+  constructor(name, health = 100, hidden) {
+    super(name, health, hidden);
+
+    this.name = name;
+    this.health = health;
+    this.hidden = false;
+  }
+
+  hide() {
+    this.hidden = true;
+  }
 }
 
 class Carnivore extends Animal {
-  // write your code here
+  constructor(name, health = 100) {
+    super(name, health);
+
+    this.name = name;
+    this.health = health;
+  }
+
+  bite(victim) {
+    if (victim.hidden !== true && victim.hidden !== undefined) {
+      victim.health -= 50;
+
+      if (victim.health <= 0) {
+        this.deleteBeast(victim);
+      }
+    }
+  }
 }
 
 module.exports = {
